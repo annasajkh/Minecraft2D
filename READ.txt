@@ -1,0 +1,5 @@
+to build the project run build_jar (NOTE HOW HAVE TO INSTALL GRADLE FIRST)
+and go to folder desktop\build\libs
+
+you can modify anything in core folder
+the scripts are in core\src\com\github\annasajkh
