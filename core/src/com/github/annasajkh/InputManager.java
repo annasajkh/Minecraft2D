@@ -11,10 +11,14 @@ import com.github.annasajkh.entities.Entity;
 
 public class InputManager implements InputProcessor
 {
+    
+    public static Vector3 mousePos = new Vector3();
 	
 	public static void getInput()
 	{
-		Vector3 mousePos = Minecraft2D.camera.unproject(new Vector3(Gdx.input.getX(),Gdx.input.getY(),0));
+	    mousePos.x = Gdx.input.getX();
+	    mousePos.y = Gdx.input.getY();
+		mousePos = Minecraft2D.camera.unproject(mousePos);
 		
 		if(Minecraft2D.cameraMode)
 		{
@@ -116,8 +120,6 @@ public class InputManager implements InputProcessor
 					Minecraft2D.modifiedBlocks.put(BlockState.getString(block.x,block.y),new BlockState(block.x, block.y, block.itemType,false));					
 				}
 				
-				System.out.println("placing " + block.itemType.toString());
-				
 				for (Chunk chunk : Minecraft2D.chunks)
 				{
 					if(chunk.isInChunk(block.x)) 
@@ -184,8 +186,6 @@ public class InputManager implements InputProcessor
 					{
 						Minecraft2D.player.inventory[j].count++;
 						
-						System.out.println("breaking " + block.itemType.toString());
-						
 						if(!block.isParticle)
 						{									
 							Minecraft2D.modifiedBlocks.put(BlockState.getString(block.x,block.y),new BlockState(block.x, block.y, block.itemType,true));
@@ -211,8 +211,6 @@ public class InputManager implements InputProcessor
 					{
 						Minecraft2D.player.inventory[j].itemType = block.itemType;
 						Minecraft2D.player.inventory[j].count = 1;
-	
-						System.out.println("breaking " + block.itemType.toString());
 						
 						if(!block.isParticle)
 						{

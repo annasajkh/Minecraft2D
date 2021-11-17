@@ -11,7 +11,10 @@ import com.github.annasajkh.blocks.Dirt;
 import com.github.annasajkh.blocks.Grass;
 import com.github.annasajkh.blocks.GrassBlock;
 import com.github.annasajkh.blocks.Stone;
+import com.github.annasajkh.entities.Cloud;
+import com.github.annasajkh.entities.Enemy;
 import com.github.annasajkh.entities.Entity;
+import com.github.annasajkh.entities.Slime;
 import com.github.annasajkh.structures.Tree;
 
 public class Chunk
@@ -137,6 +140,25 @@ public class Chunk
 					slice.add(new Grass(block.x,block.y + Minecraft2D.size));
 				}
 			}
+			
+            if(block.itemType == ItemType.GRASS_BLOCK && Minecraft2D.spawnCooldown <= 0)
+            {
+                if(Minecraft2D.enviromentRandom.nextFloat() <= Slime.spawnChance)
+                {
+                    Minecraft2D.entities.add(new Slime(block.x,block.y + Minecraft2D.size));
+                }
+                
+                if(Minecraft2D.enviromentRandom.nextFloat() <= Enemy.spawnChance)
+                {
+                    Minecraft2D.entities.add(new Enemy(block.x,block.y + Minecraft2D.size));
+                }
+                
+                if(Minecraft2D.enviromentRandom.nextFloat() <= Cloud.spawnChance)
+                {
+                    Minecraft2D.entities.add(new Cloud(block.x + Minecraft2D.size * MathUtils.random(-10,10),block.y + Minecraft2D.size * MathUtils.random(15,30)));
+                }
+                Minecraft2D.spawnCooldown = 0.5f;
+            }
 		}
 		
 		List<Block> grasses = new ArrayList<>();

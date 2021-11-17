@@ -6,6 +6,8 @@ import com.github.annasajkh.blocks.Block;
 public class WorldGeneration
 {
 	
+	private WorldGeneration() { }
+	
 	public static int getNBlock(float x)
 	{
 		return (int) (x / Minecraft2D.size);

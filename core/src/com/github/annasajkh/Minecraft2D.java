@@ -20,11 +20,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.github.annasajkh.blocks.Block;
-import com.github.annasajkh.entities.Cloud;
-import com.github.annasajkh.entities.Enemy;
 import com.github.annasajkh.entities.Entity;
 import com.github.annasajkh.entities.Player;
-import com.github.annasajkh.entities.Slime;
 import com.github.annasajkh.libs.FastNoiseLite;
 import com.github.annasajkh.libs.FastNoiseLite.NoiseType;
 
@@ -67,8 +64,8 @@ public class Minecraft2D extends ApplicationAdapter
 	
 	
 	public static float size = 50;
-	public static float worldHeightInBlock = 200;
-	public static float gravity = 0.5f;
+	public static float worldHeightInBlock = 150;
+	public static float gravity = 0.7f;
 	public static float itemSize = size * 0.5f;
 	public static float skyColorBlue = 0;
 	public static boolean cameraMode = false;
@@ -80,7 +77,7 @@ public class Minecraft2D extends ApplicationAdapter
 	public static float saveTimer = 100000;
 	public static float zoomSpeed = 0.1f;
 	public static int seaLevel = 100;
-	public static float spawnCooldown = 10;
+	public static float spawnCooldown = 0.5f;
 	public static float zoomFactor = 0.5f;
 
 	public static boolean isOffScreen(float x , float y)
@@ -193,7 +190,7 @@ public class Minecraft2D extends ApplicationAdapter
 		{
 			for(Block block : chunk.blocks)
 			{
-				Minecraft2D.blockHash.put(BlockState.getString(block.x,block.y),block);
+			    Minecraft2D.blockHash.put(BlockState.getString(block.x,block.y),block);
 			}
 		}
 	}
@@ -212,9 +209,18 @@ public class Minecraft2D extends ApplicationAdapter
 		player.update();
 		WorldGeneration.removeAndAddChunk();
 		
-		while(entities.size() > entityLimit)
+		while(entities.size() >= entityLimit)
 		{
-			entities.remove(entities.get(MathUtils.random(entities.size()-1)));
+		    Entity largestDstToPlayer= this.entities.get(0);
+		    
+		    for(Entity e : this.entities)
+		    {
+		        if(largestDstToPlayer.distToPlayer2 < e.distToPlayer2)
+		        {
+		            largestDstToPlayer = e;
+		        }
+		    }
+			entities.remove(largestDstToPlayer);
 		}
 		
 		for(Chunk chunk : chunks)
@@ -222,29 +228,9 @@ public class Minecraft2D extends ApplicationAdapter
 			for(int i = chunk.blocks.size() - 1; i >= 0; i--)
 			{
 				Block block = chunk.blocks.get(i);
-				
-				if(!blockHash.containsKey(BlockState.getString(block.x,block.y)))
+				if(!blockHash.containsKey(BlockState.getString(block.x,block.y)) && !chunk.isOffscreen())
 				{
 					Minecraft2D.blockHash.put(BlockState.getString(block.x,block.y),block);
-				}
-				
-				if(block.itemType == ItemType.GRASS_BLOCK && spawnCooldown <= 0)
-				{	
-					if(Minecraft2D.enviromentRandom.nextFloat() <= Slime.spawnChance)
-					{
-						Minecraft2D.entities.add(new Slime(block.x,block.y + Minecraft2D.size));
-					}
-					
-					if(Minecraft2D.enviromentRandom.nextFloat() <= Enemy.spawnChance)
-					{
-						Minecraft2D.entities.add(new Enemy(block.x,block.y + Minecraft2D.size));
-					}
-					
-					if(Minecraft2D.enviromentRandom.nextFloat() <= Cloud.spawnChance)
-					{
-						Minecraft2D.entities.add(new Cloud(block.x + Minecraft2D.size * MathUtils.random(-10,10),block.y + Minecraft2D.size * MathUtils.random(15,30)));
-					}
-					spawnCooldown = 10;
 				}
 				
 				if(block.isParticle && !isOffChunk(block.x))	
@@ -252,8 +238,11 @@ public class Minecraft2D extends ApplicationAdapter
 					block.update();
 					
 					if(block.y < -Minecraft2D.size)
-					{
-						blockHash.remove(BlockState.getString(block.x,block.y));
+					{   
+    		            if(chunk.isOffscreen())
+    		            {
+    		                blockHash.remove(BlockState.getString(block.x,block.y));
+    		            }
 						chunk.blocks.remove(block);
 					}
 				}

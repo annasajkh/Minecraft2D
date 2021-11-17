@@ -9,7 +9,7 @@ public class Slime extends Entity
 	float jumpCoolDown = 0;
 	float cooldown = jumpCoolDown;
 
-	public static float spawnChance = 0.05f;
+	public static float spawnChance = 0.1f;
 	
 	
 	public Slime(float x, float y)
@@ -23,16 +23,14 @@ public class Slime extends Entity
 	{
 		if(!Minecraft2D.isOffChunk(x))
 		{
+            
 			if(cooldown <= 0)
 			{
-				if(x > Minecraft2D.player.x)
-				{
-					velocity.x = jumpHeight * 0.5f;
-				}
-				else
-				{
-					velocity.x = jumpHeight * 0.5f * -1;
-				}
+	            if(this.isOnFloor || velocity.y == 0)
+	            {	                
+	                velocity.x = (float) (jumpHeight * (Math.random() * 2 - 1));
+	            }
+	            
 				jump();
 				jumpCoolDown = Math.abs(Minecraft2D.player.x - x) * 0.0001f;
 				cooldown = jumpCoolDown;

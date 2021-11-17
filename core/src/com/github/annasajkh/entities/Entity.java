@@ -6,6 +6,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.github.annasajkh.BlockState;
 import com.github.annasajkh.Chunk;
 import com.github.annasajkh.ItemType;
@@ -25,9 +26,9 @@ public abstract class Entity extends Rect implements Update
 		PLAYER
 	}
 	
-	public float moveSpeed = 5;
+	public float moveSpeed = 10;
 	public float maxGravity = 75;
-	public float jumpHeight = 10;
+	public float jumpHeight = 15;
 	public float gravity = Minecraft2D.gravity;
 	public boolean affectedByGravity = true;
 	public Chunk entityInChunk = null;
@@ -35,6 +36,7 @@ public abstract class Entity extends Rect implements Update
 	public boolean remove = false;
 	public int health;
 	public int air = 500;
+	public float distToPlayer2 = 0;
 	
 	Type type;
 
@@ -56,7 +58,11 @@ public abstract class Entity extends Rect implements Update
 	
 	public void updateEntity()
 	{
-		
+	    if(Minecraft2D.spawnCooldown <= 0)
+	    {	        
+	        distToPlayer2 = Vector2.dst2(this.x, this.y, Minecraft2D.player.x, Minecraft2D.player.y);
+	    }
+	    
 		List<Block> possibleCollision = new ArrayList<>();
 
 		
@@ -106,12 +112,12 @@ public abstract class Entity extends Rect implements Update
 				health--;
 			}
 			gravity =  Minecraft2D.gravity * 0.2f;
-			jumpHeight = 3f;
+			jumpHeight = 5;
 		}
 		else
 		{
 			gravity = Minecraft2D.gravity;
-			jumpHeight = 10;
+			jumpHeight = 15;
 			air = 500;
 		}
 		
