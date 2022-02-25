@@ -63,63 +63,63 @@ public class Rect
 	{
 		if(intersect(otherRect))
 		{
-            float collisionDeepX;
-            float collisionDeepY;
+		    float collisionDeepX;
+		    float collisionDeepY;
 
-            if (x > otherRect.x)
-            {
-                collisionDeepX = Math.abs(x - otherRect.x - width / 2 - otherRect.width / 2);
-            }
-            else
-            {
-                collisionDeepX = Math.abs(otherRect.x - x - width / 2 - otherRect.width / 2);
-            }
+		    if (x > otherRect.x)
+		    {
+			collisionDeepX = Math.abs(x - otherRect.x - width / 2 - otherRect.width / 2);
+		    }
+		    else
+		    {
+			collisionDeepX = Math.abs(otherRect.x - x - width / 2 - otherRect.width / 2);
+		    }
 
-            if (y > otherRect.y)
-            {
-                velocity.x = 0;
-                collisionDeepY = Math.abs(y - otherRect.y - height / 2 - otherRect.height / 2);
-            }
-            else
-            {
-                velocity.x = 0;
-                collisionDeepY = Math.abs(otherRect.y - y - height / 2 - otherRect.height / 2);
-            }
+		    if (y > otherRect.y)
+		    {
+			velocity.x = 0;
+			collisionDeepY = Math.abs(y - otherRect.y - height / 2 - otherRect.height / 2);
+		    }
+		    else
+		    {
+			velocity.x = 0;
+			collisionDeepY = Math.abs(otherRect.y - y - height / 2 - otherRect.height / 2);
+		    }
 
-            if (x < otherRect.x && collisionDeepX < collisionDeepY)
-            {
-            	isOnWall = true;
-                velocity.x = 0;
-                x -= collisionDeepX;
-            }
-            else if (x > otherRect.x && collisionDeepX < collisionDeepY)
-            {
-            	isOnWall = true;
-                velocity.x = 0;
-                x += collisionDeepX;
-            }
-            else if (y > otherRect.y && collisionDeepX > collisionDeepY)
-            {
-            	isOnFloor = true;
-            	isOnWall = false;
-            	
-                velocity.y = 0;
-                y += collisionDeepY;
-            }
-            else if (y < otherRect.y && collisionDeepX > collisionDeepY)
-            {
-            	isOnFloor = false;
-            	isOnWall = false;
-            	
-                velocity.y = 0;
-                y -= collisionDeepY;
-            }
-            else
-            {
-            	isOnFloor = false;
-            	isOnWall = false;
-            }
-        }
+		    if (x < otherRect.x && collisionDeepX < collisionDeepY)
+		    {
+			isOnWall = true;
+			velocity.x = 0;
+			x -= collisionDeepX;
+		    }
+		    else if (x > otherRect.x && collisionDeepX < collisionDeepY)
+		    {
+			isOnWall = true;
+			velocity.x = 0;
+			x += collisionDeepX;
+		    }
+		    else if (y > otherRect.y && collisionDeepX > collisionDeepY)
+		    {
+			isOnFloor = true;
+			isOnWall = false;
+
+			velocity.y = 0;
+			y += collisionDeepY;
+		    }
+		    else if (y < otherRect.y && collisionDeepX > collisionDeepY)
+		    {
+			isOnFloor = false;
+			isOnWall = false;
+
+			velocity.y = 0;
+			y -= collisionDeepY;
+		    }
+		    else
+		    {
+			isOnFloor = false;
+			isOnWall = false;
+		    }
+		}
 	}
 	
 	
@@ -127,152 +127,152 @@ public class Rect
 	{
 		if(intersect(otherRect))
 		{
-            float collisionDeepX;
-            float collisionDeepY;
+		    float collisionDeepX;
+		    float collisionDeepY;
 
-            if (x > otherRect.x)
-            {
-                collisionDeepX = Math.abs(x - otherRect.x - width / 2 - otherRect.width / 2);
-            }
-            else
-            {
-                collisionDeepX = Math.abs(otherRect.x - x - width / 2 - otherRect.width / 2);
-            }
+		    if (x > otherRect.x)
+		    {
+			collisionDeepX = Math.abs(x - otherRect.x - width / 2 - otherRect.width / 2);
+		    }
+		    else
+		    {
+			collisionDeepX = Math.abs(otherRect.x - x - width / 2 - otherRect.width / 2);
+		    }
 
-            if (y > otherRect.y)
-            {
-                velocity.x = 0;
-                collisionDeepY = Math.abs(y - otherRect.y - height / 2 - otherRect.height / 2);
-            }
-            else
-            {
-                velocity.x = 0;
-                collisionDeepY = Math.abs(otherRect.y - y - height / 2 - otherRect.height / 2);
-            }
+		    if (y > otherRect.y)
+		    {
+			velocity.x = 0;
+			collisionDeepY = Math.abs(y - otherRect.y - height / 2 - otherRect.height / 2);
+		    }
+		    else
+		    {
+			velocity.x = 0;
+			collisionDeepY = Math.abs(otherRect.y - y - height / 2 - otherRect.height / 2);
+		    }
 
-            if (x < otherRect.x && collisionDeepX < collisionDeepY)
-            {
-            	isOnWall = true;
-            	isOnFloor = false;
-                velocity.x = 0;
-                x -= collisionDeepX * amountScale;
-            }
-            else if (x > otherRect.x && collisionDeepX < collisionDeepY)
-            {
-            	isOnWall = true;
-            	isOnFloor = false;
-                velocity.x = 0;
-                x += collisionDeepX * amountScale;
-            }
-            else if (y > otherRect.y && collisionDeepX > collisionDeepY)
-            {
-            	isOnFloor = true;
-            	isOnWall = false;
-            	
-                velocity.y = 0;
-                y += collisionDeepY * amountScale;
-            }
-            else if (y < otherRect.y && collisionDeepX > collisionDeepY)
-            {
-            	isOnFloor = false;
-            	isOnWall = false;
-            	
-                velocity.y = 0;
-                y -= collisionDeepY * amountScale;
-            }
-            else
-            {
-            	isOnFloor = false;
-            	isOnWall = false;
-            }
-        }
+		    if (x < otherRect.x && collisionDeepX < collisionDeepY)
+		    {
+			isOnWall = true;
+			isOnFloor = false;
+			velocity.x = 0;
+			x -= collisionDeepX * amountScale;
+		    }
+		    else if (x > otherRect.x && collisionDeepX < collisionDeepY)
+		    {
+			isOnWall = true;
+			isOnFloor = false;
+			velocity.x = 0;
+			x += collisionDeepX * amountScale;
+		    }
+		    else if (y > otherRect.y && collisionDeepX > collisionDeepY)
+		    {
+			isOnFloor = true;
+			isOnWall = false;
+
+			velocity.y = 0;
+			y += collisionDeepY * amountScale;
+		    }
+		    else if (y < otherRect.y && collisionDeepX > collisionDeepY)
+		    {
+			isOnFloor = false;
+			isOnWall = false;
+
+			velocity.y = 0;
+			y -= collisionDeepY * amountScale;
+		    }
+		    else
+		    {
+			isOnFloor = false;
+			isOnWall = false;
+		    }
+		}
 	}
 	
 	public void dynamicResolveCollision(Rect otherRect)
 	{
 		if(intersect(otherRect))
 		{
-            float collisionDeepX;
-            float collisionDeepY;
+		    float collisionDeepX;
+		    float collisionDeepY;
 
-            if (x > otherRect.x)
-            {	
-                collisionDeepX = Math.abs(x - otherRect.x - width / 2 - otherRect.width / 2);
-            }
-            else
-            {
-                collisionDeepX = Math.abs(otherRect.x - x - width / 2 - otherRect.width / 2);
-            }
+		    if (x > otherRect.x)
+		    {	
+			collisionDeepX = Math.abs(x - otherRect.x - width / 2 - otherRect.width / 2);
+		    }
+		    else
+		    {
+			collisionDeepX = Math.abs(otherRect.x - x - width / 2 - otherRect.width / 2);
+		    }
 
-            if (y > otherRect.y)
-            {
+		    if (y > otherRect.y)
+		    {
 
-                velocity.x = 0;
-                otherRect.velocity.x = 0;
-                collisionDeepY = Math.abs(y - otherRect.y - height / 2 - otherRect.height / 2);
-            }
-            else
-            {
+			velocity.x = 0;
+			otherRect.velocity.x = 0;
+			collisionDeepY = Math.abs(y - otherRect.y - height / 2 - otherRect.height / 2);
+		    }
+		    else
+		    {
 
-                velocity.x = 0;
-                otherRect.velocity.x = 0;
-                collisionDeepY = Math.abs(otherRect.y - y - height / 2 - otherRect.height / 2);
-            }
-            
+			velocity.x = 0;
+			otherRect.velocity.x = 0;
+			collisionDeepY = Math.abs(otherRect.y - y - height / 2 - otherRect.height / 2);
+		    }
 
-            collisionDeepX *= 0.5f;
-            collisionDeepY *= 0.5f;
 
-            if (x < otherRect.x && collisionDeepX < collisionDeepY)
-            {
-            	isOnWall = true;
-            	isOnFloor = false;
-            	
-                velocity.x = 0;
-                
-                otherRect.velocity.x = 0;
-                
-                x -= collisionDeepX;
-                otherRect.x += collisionDeepX;
-            }
-            else if (x > otherRect.x && collisionDeepX < collisionDeepY)
-            {
-            	isOnWall = true;
-            	isOnFloor = false;
-            	velocity.x = 0;
-                otherRect.velocity.x = 0;
-                
-                x += collisionDeepX;
-                otherRect.x -= collisionDeepX;
-            }
-            else if (y > otherRect.y && collisionDeepX > collisionDeepY)
-            {
+		    collisionDeepX *= 0.5f;
+		    collisionDeepY *= 0.5f;
 
-            	isOnFloor = true;
-            	isOnWall = false;
-            	
-                velocity.y = 0;
-                otherRect.velocity.y = 0;
-                
-                y += collisionDeepY;
-                otherRect.y -= collisionDeepY;
-            }
-            else if (y < otherRect.y && collisionDeepX > collisionDeepY)
-            {
-            	isOnWall = false;
-            	isOnFloor = false;
-                velocity.y = 0;
-                otherRect.velocity.y = 0;
-                
-                y -= collisionDeepY;
-                otherRect.y += collisionDeepY;
-            }
-            else
-            {
-            	isOnFloor = false;
-            	isOnWall = false;
-            }
-        }
+		    if (x < otherRect.x && collisionDeepX < collisionDeepY)
+		    {
+			isOnWall = true;
+			isOnFloor = false;
+
+			velocity.x = 0;
+
+			otherRect.velocity.x = 0;
+
+			x -= collisionDeepX;
+			otherRect.x += collisionDeepX;
+		    }
+		    else if (x > otherRect.x && collisionDeepX < collisionDeepY)
+		    {
+			isOnWall = true;
+			isOnFloor = false;
+			velocity.x = 0;
+			otherRect.velocity.x = 0;
+
+			x += collisionDeepX;
+			otherRect.x -= collisionDeepX;
+		    }
+		    else if (y > otherRect.y && collisionDeepX > collisionDeepY)
+		    {
+
+			isOnFloor = true;
+			isOnWall = false;
+
+			velocity.y = 0;
+			otherRect.velocity.y = 0;
+
+			y += collisionDeepY;
+			otherRect.y -= collisionDeepY;
+		    }
+		    else if (y < otherRect.y && collisionDeepX > collisionDeepY)
+		    {
+			isOnWall = false;
+			isOnFloor = false;
+			velocity.y = 0;
+			otherRect.velocity.y = 0;
+
+			y -= collisionDeepY;
+			otherRect.y += collisionDeepY;
+		    }
+		    else
+		    {
+			isOnFloor = false;
+			isOnWall = false;
+		    }
+		}
 	}
 
 }
