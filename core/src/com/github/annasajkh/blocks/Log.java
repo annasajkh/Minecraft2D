@@ -7,9 +7,9 @@ import com.github.annasajkh.Minecraft2D;
 public class Log extends Block
 {
 
-	public Log(float x, float y)
-	{
-		super(x, y,Minecraft2D.logTexture,ItemType.LOG,true);
-	}
+    public Log(float x, float y)
+    {
+        super(x, y, Minecraft2D.logTexture, ItemType.LOG, true);
+    }
 
 }
