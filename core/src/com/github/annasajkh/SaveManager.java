@@ -31,7 +31,7 @@ public class SaveManager
 
             for (BlockState blockState : Minecraft2D.modifiedBlocks.values())
             {
-                dataBuilder.append(blockState.toString() + '\n');
+                dataBuilder.append(blockState.toString()).append('\n');
             }
 
             for (Chunk chunk : Minecraft2D.chunks)
@@ -40,7 +40,7 @@ public class SaveManager
                 {
                     if (block.isParticle && block.isModifiedBlock)
                     {
-                        dataBuilder.append(new BlockState(block.x, block.y, block.itemType, false) + ",P" + '\n');
+                        dataBuilder.append(new BlockState(block.x, block.y, block.itemType, false)).append(",P").append('\n');
                     }
                 }
             }

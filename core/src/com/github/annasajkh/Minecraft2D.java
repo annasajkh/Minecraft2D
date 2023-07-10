@@ -213,9 +213,9 @@ public class Minecraft2D extends ApplicationAdapter
 
         while (entities.size() >= entityLimit)
         {
-            Entity largestDstToPlayer = this.entities.get(0);
+            Entity largestDstToPlayer = entities.get(0);
 
-            for (Entity e : this.entities)
+            for (Entity e : entities)
             {
                 if (largestDstToPlayer.distToPlayer2 < e.distToPlayer2)
                 {

@@ -63,8 +63,8 @@ public class Chunk
             {
                 String[] posString = key.split(",");
 
-                float x = Float.valueOf(posString[0]);
-                float y = Float.valueOf(posString[1]);
+                float x = Float.parseFloat(posString[0]);
+                float y = Float.parseFloat(posString[1]);
 
                 if (x == slice.get(0).x)
                 {

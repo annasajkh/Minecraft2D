@@ -8,7 +8,6 @@ import com.github.annasajkh.Minecraft2D;
 
 public class Water extends ParticleBlock
 {
-
     public Water(float x, float y)
     {
         super(x, y, Minecraft2D.waterTexture, ItemType.WATER);

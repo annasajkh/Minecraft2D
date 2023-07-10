@@ -190,11 +190,11 @@ public class Player extends Entity
         {
             spriteBatch.draw(Minecraft2D.healthSprite[0], 10, Gdx.graphics.getHeight() - 60, 100, 50);
         }
-        else if (health > 25 && health <= 50)
+        else if (health > 25 && health < 50)
         {
             spriteBatch.draw(Minecraft2D.healthSprite[1], 10, Gdx.graphics.getHeight() - 60, 100, 50);
         }
-        else if (health <= 25)
+        else if (health < 25)
         {
             spriteBatch.draw(Minecraft2D.healthSprite[2], 10, Gdx.graphics.getHeight() - 60, 100, 50);
         }
